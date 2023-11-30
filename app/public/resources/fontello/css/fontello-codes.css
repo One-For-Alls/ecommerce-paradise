@@ -1,0 +1,4 @@
+
+.icon-heart:before { content: '\e800'; } /* '' */
+.icon-cart:before { content: '\e801'; } /* '' */
+.icon-user-o:before { content: '\f2c0'; } /* '' */
