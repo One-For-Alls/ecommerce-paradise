@@ -9,8 +9,7 @@ class ProductAjax {
     echo json_encode($response);
   }
   public static function ajaxGetProductsCategory($slug) {
-    $response = ProductController::ctrGetProductsCategory($slug);
-    var_dump($response);
+    $response = ProductController::ctrGetProductsByCategory($slug);
     echo json_encode($response);
   }
 }

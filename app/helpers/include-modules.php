@@ -1,18 +1,14 @@
 <?php
 
-
-
-function includeModules($archive, $file = null, $data = null)
+function includeModules($archive, $file = null)
 {
-
-  if ($file) {
-    $products = $data['products'];
-    $title = $data['categories']['name'];
-    $path = __DIR__ . "/../Views/modules/{$archive}.php";
-  } else {
+  if (!$file) {
     $path = __DIR__ . "/../Views/modules/partials/{$archive}.php";
+    return include_once $path;
+  } else{
+    $path = __DIR__ . "/../Views/modules/{$file}/{$archive}.php";
+    return include_once $path;
   }
-  return include_once $path;
 }
 
 function includeModuleCategory($category)
@@ -21,12 +17,8 @@ function includeModuleCategory($category)
   $categoryName = CategoryController::ctrGetCategoryById($route['category_id']);
   $productsCategory = ProductController::ctrGetProductsByCategory($route['category_id']);
 
-  $path = __DIR__ . "/../Views/modules/category.php";
-
-  if($productsCategory) {
-    return include_once $path;
-  }else {
-    $error =  ['message' => 'Error no existen productos en esta categoria...'];
+  if ($productsCategory) {
+    $path = __DIR__ . "/../Views/modules/category.php";
     return include_once $path;
   }
 }
@@ -35,14 +27,11 @@ function includeModuleProduct($categorySlug, $productSlug)
   $route = RouteController::ctrGetRoutesById($categorySlug);
   $categoryName = CategoryController::ctrGetCategoryById($route['category_id']);
   $product = ProductController::ctrGetProductBySlug($productSlug);
-  $productDetail = ProductController::ctrGetProductDetail($route['category_id'], $product['id']);
+  $productDetail = ProductController::ctrGetProductDetail($product['id']);
 
-  $path = __DIR__ . "/../Views/modules/product.php";
-
-  if($productDetail) {
-    return include_once $path;
-  }else {
-    $error =  ['message' => 'Error no existen productos en esta categoria...'];
+  
+  if ($productDetail) {
+    $path = __DIR__ . "/../Views/modules/product.php";
     return include_once $path;
   }
 }

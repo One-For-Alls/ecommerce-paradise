@@ -3,7 +3,7 @@ require_once __DIR__ . '/../config/connection.php';
 
 class ProductModel {
   public static function mdlGetProducts() {
-    $stmt = Connection::conn()->prepare('SELECT * FROM products');
+    $stmt = Connection::conn()->prepare('SELECT p.id,p.brand, p.name, p.slug, p.description, p.price, p.price_discount, p.color, c.name AS category, c.slug AS categorySlug, p.image FROM products AS p inner join categories AS c ON p.category_id = c.id');
     $stmt->execute();
     return $stmt->fetchAll();
   }
@@ -19,11 +19,10 @@ class ProductModel {
     $stmt->execute();
     return $stmt->fetch(PDO::FETCH_ASSOC);
   }
-  public static function mdlGetProductDetail($categoryId, $productId) {
+  public static function mdlGetProductDetail($productId) {
     $stmt = Connection::conn()
-      ->prepare("SELECT p.id, p.name, p.description, p.price, p.color, c.name AS category, p.image FROM products AS p INNER JOIN categories AS c ON p.category_id = c.id WHERE p.id = :productId AND p.category_id = :categoryId");
+      ->prepare("SELECT p.*, c.name AS category FROM products AS p INNER JOIN categories AS c ON p.category_id = c.id WHERE p.id = :productId");
     $stmt-> bindParam(':productId', $productId, PDO::PARAM_INT);
-    $stmt-> bindParam(':categoryId', $categoryId, PDO::PARAM_INT);
     $stmt->execute();
     return $stmt->fetch(PDO::FETCH_ASSOC);
   }

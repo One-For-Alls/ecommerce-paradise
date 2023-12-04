@@ -14,7 +14,7 @@ class ModelCategory {
     return $stmt->fetch();
   }
   public static function mdlGetRouteCategory() {
-    $stmt = Connection::conn()->prepare('SELECT r.type, r.slug, r.category_id, c.name FROM routes AS r INNER JOIN categories AS c ON r.category_id = c.id');
+    $stmt = Connection::conn()->prepare('SELECT r.type, c.slug, r.category_id, c.name FROM routes AS r INNER JOIN categories AS c ON r.category_id = c.id');
     $stmt->execute();
     return $stmt->fetchAll();
   }

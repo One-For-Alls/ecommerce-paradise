@@ -19,8 +19,8 @@ class Connection
       ];
       $pdo = new PDO($dsn, self::$user, self::$pass, $options);
       return $pdo;
-    } catch (\PDOException $e) {
-      throw new \PDOException($e->getMessage(), (int)$e->getCode());
+    } catch (PDOException $e) {
+      throw new PDOException($e->getMessage(), (int)$e->getCode());
     }
   }
 }

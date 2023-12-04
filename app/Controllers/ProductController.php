@@ -12,8 +12,8 @@ class ProductController {
     $response = ProductModel::mdlGetProductBySlug($slug);
     return $response;
   }
-  public static function ctrGetProductDetail($categoryid, $productId) {
-    $response = ProductModel::mdlGetProductDetail($categoryid, $productId);
+  public static function ctrGetProductDetail($productId) {
+    $response = ProductModel::mdlGetProductDetail($productId);
     return $response;
   }
 }
